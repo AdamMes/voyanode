@@ -1,0 +1,19 @@
+[Unit]
+Description=VoyaNode Flask API Service
+After=network.target
+
+[Service]
+# The user that will run the service (usually 'ubuntu' on AWS)
+User=ubuntu
+# Path to your project directory
+WorkingDirectory=/home/ubuntu/VoyaNode
+# Path to your virtual environment's gunicorn or python
+# Using gunicorn is best practice for production on port 5001
+ExecStart=/home/ubuntu/VoyaNode/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:5001 app:app
+# Automatically restart if it crashes
+Restart=always
+# Environment variables can also be loaded from a file
+EnvironmentFile=/home/ubuntu/VoyaNode/.env
+
+[Install]
+WantedBy=multi-user.target

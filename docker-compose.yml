@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    image: adammes/voyanode:latest
+    ports:
+      - "5001:5001"
+    env_file: .env
+    command: gunicorn --bind 0.0.0.0:5001 app:app
+
+  worker:
+    image: adammes/voyanode:latest
+    env_file: .env
+    command: python worker.py

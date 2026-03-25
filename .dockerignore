@@ -1,0 +1,27 @@
+# Ignore the local environment variables file (Critical for Security)
+.env
+
+# Ignore Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local virtual environments (Large and platform-specific)
+venv/
+.venv/
+env/
+
+# Ignore Git history and configuration
+.git/
+.gitignore
+
+# Ignore IDE specific files (PyCharm/VSCode)
+.idea/
+.vscode/
+
+# Ignore raw data files (They should be in S3, not in the container)
+data/raw/
+
+# Ignore OS-specific system files
+.DS_Store

@@ -1,0 +1,17 @@
+[Unit]
+Description=VoyaNode SQS Worker Service
+After=network.target
+
+[Service]
+# Ensure the worker runs under the correct user
+User=ubuntu
+WorkingDirectory=/home/ubuntu/VoyaNode
+# Direct execution of the python script via the virtualenv
+ExecStart=/home/ubuntu/VoyaNode/venv/bin/python worker.py
+# If the worker loses connection to SQS/OpenSearch, it will restart
+Restart=always
+RestartSec=5
+EnvironmentFile=/home/ubuntu/VoyaNode/.env
+
+[Install]
+WantedBy=multi-user.target

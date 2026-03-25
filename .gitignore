@@ -1,0 +1,14 @@
+.venv/
+.env
+__pycache__/
+.idea/
+*.pyc
+*.pem
+*.key
+credentials
+.aws/
+.DS_Store
+*.log
+data/processed/
+data/raw/
+*.pdf

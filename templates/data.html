@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Data Files{% endblock %}
+
+{% block content %}
+<div class="glass-container">
+    <div class="d-flex justify-content-between align-items-center mb-4 glass-container-top">
+        <h2>Knowledge Base Management</h2>
+        <span class="file-count p-2">{{ files|length }} Files Synced</span>
+    </div>
+
+    <p class="text-muted">
+        Below is the list of documents that VoyaNode uses to generate answers.
+        Viewable content is limited to PDF documents only.
+    </p>
+
+    <div class="data-table-container mt-4 p-3">
+
+        <div class="d-flex justify-content-between align-items-center mb-4 glass-container-top">
+    <h3>Current Knowledge Base</h3>
+
+    <form action="{{ url_for('wipe_index') }}" method="POST"
+          onsubmit="return confirm('⚠️ WARNING: This will delete ALL indexed data. Are you sure?');">
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Wipe Entire Index
+        </button>
+    </form>
+</div>
+
+        <table class="table kb-table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Storage Path</th>
+                    <th class="text-start px-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if files %}
+                    {% for file_key in files %}
+                    <tr>
+                        <td data-label="File Name">
+                            {{ file_key.split('/')[-1] }}
+                        </td>
+                        <td data-label="Storage Path">
+                            <code class="s3-path-code">s3://{{ config.S3_BUCKET }}/{{ file_key }}</code>
+                        </td>
+                        <td class="text-start px-4" data-label="Action">
+                            <div class="btn-group" role="group">
+
+                                <a href="{{ url_for('download_file', filename=file_key) }}"
+                                   class="btn btn-sm btn-outline-primary">
+                                   Download
+                                </a>
+
+                                <a href="{{ url_for('delete_file', filename=file_key) }}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Delete this file and all its vector data from OpenSearch?')">
+                                   Delete
+                                </a>
+
+                                {% if file_key.lower().endswith('.pdf') %}
+                                <a href="{{ url_for('view_file', filename=file_key) }}"
+                                   target="_blank"
+                                   class="btn btn-sm btn-outline-secondary">
+                                   View
+                                </a>
+                                {% endif %}
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center py-5 text-muted">
+                            No documents found. Visit the Chat page to upload your first travel guide.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3 p-2 border-top">
+    <small class="text-muted" style="font-style: italic;">
+        <i class="fas fa-exclamation-triangle"></i>
+        Important: After deleting a file/wipe entire index, it may take up to 60 seconds for the information to be fully removed from the AI's knowledge base.
+    </small>
+</div>
+</div>
+{% endblock %}
