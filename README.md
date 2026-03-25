@@ -112,7 +112,7 @@ Follow these steps to deploy "VoyaNode" on your local machine or an AWS EC2 inst
 ### 2. Clone & Environment Configuration
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/VoyaNode.git
+git clone https://github.com/AdamMes/voyanode.git
 cd VoyaNode
 
 # Create environment file from template
