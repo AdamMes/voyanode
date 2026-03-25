@@ -189,3 +189,17 @@ This project is licensed under the MIT License.
 - **Developer:** Adam Meshulam
 
 ---
+
+---
+
+# 📸 Screenshots
+### Chat Advisor page (home)
+![Faiss Route App](static/images/voyanode-ui-chat-homepage.png)
+
+### Data files page
+![Faiss Route App](static/images/voyanode-ui-data.png)
+
+### About page
+![Faiss Route App](static/images/voyanode-ui-about.png)
+
+---
